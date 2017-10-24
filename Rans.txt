@@ -1,0 +1,36 @@
+#R演習問題
+#1
+
+setwd("C:/Users/aitk1/Desktop/R")			#ワークスペースの設定を行う（自分が"en1.txt"を保存した場所を指定してください）
+x <- read.table("en1.txt",sep = "," , header = T)	#今回のデータはヘッダーありスペースカンマ切りのため
+x							#ファイルから読み込んだ値を表示
+
+
+
+#2
+
+eng <- x$英語	#変数にファイルから読み込んだ英語の列を代入
+mean(eng)	#変数の中身の平均を出力
+
+mean(x$国語)	#ファイルから読み込んだ値の平均を出力させる
+
+
+
+#3
+
+myfunc <- function(x,num){	#xはデータ集合,numがデータを取り出す回数
+	ret <- numeric(num)	#retをnumの数で初期化
+
+	for(i in 1:num){		#iからnumまでfor文を回す
+		ret[i] <- sample(x,1)	#xから1つランダムで取り出し代入
+	}				#for文はここまで
+
+return(ret)		#for文で代入された値を返す
+}
+
+mean(myfunc(eng,5))		#英語の集団から5回ランダムに値を抽出し平均を出す
+mean(myfunc(eng,10))		#英語の集団から10回ランダムに値を抽出し平均を出す
+mean(myfunc(eng,20))		#英語の集団から20回ランダムに値を抽出し平均を出す
+mean(myfunc(eng,100))		#英語の集団から100回ランダムに値を抽出し平均を出す
+mean(myfunc(eng,1000))		#英語の集団から1000回ランダムに値を抽出し平均を出す
+mean(myfunc(eng,10000))		#英語の集団から10000回ランダムに値を抽出し平均を出す

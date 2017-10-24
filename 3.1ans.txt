@@ -1,0 +1,77 @@
+#3.1.4
+#(1)母平均を求める
+
+x <- c(2,3,6,9)		#母集団の定義
+mean(x)			#母平均の出力
+
+
+
+#(1)母分散を求める
+
+x <- c(2,3,6,9)		 #母集団の定義
+ave = mean(x)		 #母平均を代入
+v = ave - x		 #偏差を計算し代入
+var = sum(v*v)/length(x) #各偏差をそれぞれ2乗し標本サイズで割る
+var			 #母分散の表示
+
+
+
+#(2)標本平均の平均＝母平均を示す
+
+size2m <- function(x){
+	ret <- numeric(length(x)^2)	#全ての標本平均を格納するための変数
+
+	for(i in 1:length(x)){		#i個目の値を抽出
+		for(j in 1:length(x)){	#j個目の値を抽出
+			tmp <- c(x[i],x[j])	#変数に標本の集団を代入
+			ret[i*length(x)+j-length(x)] <- mean(tmp)	#標本の集団の平均を求め、代入
+		}
+	}	
+ret <- sum(ret)/length(ret)	#求めた各標本平均の合計値割る標本の集団個数を代入
+return(ret)			#上で求めた値を返す
+}				#関数はここまで
+
+
+x <- c(2,3,6,9)		#母集団の定義
+size2m(x)		#上で定義した関数を呼び出し(サイズ２の全ての標本平均の平均を出力)
+
+
+
+#(2)標本平均の分散＝母分散/2を示す
+
+size2v <- function(x){		
+	ret <- numeric(length(x)^2)	#全ての標本平均を格納するための変数
+
+	for(i in 1:length(x)){		#i個目の値を抽出
+		for(j in 1:length(x)){	#j個目の値を抽出
+			tmp <- c(x[i],x[j])		#サイズ２の標本集団
+			ave = mean(tmp)			#標本の平均を計算
+			v = ave - tmp			#偏差の計算
+			var=sum(v^2)/length(tmp)	#各偏差を２乗し標本サイズで割る
+			ret[i*length(x)+j-length(x)] <- var	#標本分散を代入
+		}
+	}			#for文はここまで
+ret <- sum(ret)/length(ret)	#各標本分散を合計し標本の個数で割る
+return (ret)			#上で計算した値を返す
+}				#関数はここまで
+
+x <- c(2,3,6,9)			#母集団の定義
+size2v(x)			#上で作った関数を実行
+
+
+
+#3.1.5
+#xよりも大きいルートn(ｎは整数)を求める関数
+
+
+rootN <- function(num,x,y = 1){
+	#numは探索範囲、xは目標値(1.96),yはルートを割る数
+
+	for(i in 1:num){		#1からnumの数までnの値を探す
+		if(sqrt(i)/y>x){	#iの平方根割るyがxより大きくなった時に
+		return (i)		#その時のiを返す
+		}			#if文はここまで
+	}				#for文はここまで
+}					#関数はここまで
+
+rootN(10000,1.96,4)			#関数の実行
